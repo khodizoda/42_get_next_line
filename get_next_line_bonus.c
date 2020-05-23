@@ -6,7 +6,7 @@
 /*   By: gkhodizo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/03 15:28:11 by gkhodizo          #+#    #+#             */
-/*   Updated: 2020/05/21 01:16:09 by gkhodizo         ###   ########.fr       */
+/*   Updated: 2020/05/22 20:34:53 by gkhodizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,11 @@ int				get_next_line(int fd, char **line)
 		|| !(*line = ft_strdup("")))
 		return (-1);
 	if (!main_buff[fd])
+	{
 		if (!(main_buff[fd] = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char))))
 			return (-1);
+		main_buff[fd][0] = '\0';
+	}
 	main_buff[fd] = read_append(fd, main_buff[fd], tmp_buff);
 	if (main_buff[fd][0] == '\0')
 		return (0);

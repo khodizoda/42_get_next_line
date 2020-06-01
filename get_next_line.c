@@ -6,7 +6,7 @@
 /*   By: gkhodizo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/03 15:28:11 by gkhodizo          #+#    #+#             */
-/*   Updated: 2020/05/22 20:30:46 by gkhodizo         ###   ########.fr       */
+/*   Updated: 2020/06/01 18:05:23 by gkhodizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,9 @@ static char		*realloc_append_buff(char *mid_buff, char *tmp_buff)
 
 static char		*read_append(int fd, char *main_buff, char *tmp_buff)
 {
-	int		bytes_read;
+	ssize_t	bytes_read;
 	char	*mid_buff;
 
-	bytes_read = 0;
 	while ((bytes_read = read(fd, tmp_buff, BUFFER_SIZE)) > 0)
 	{
 		tmp_buff[bytes_read] = '\0';
@@ -121,11 +120,11 @@ int				get_next_line(int fd, char **line)
 		|| !(*line = ft_strdup("")))
 		return (-1);
 	if (!main_buff[fd])
-	{
-		if (!(main_buff[fd] = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char))))
-			return (-1);
-		main_buff[fd][0] = '\0';
-	}
+    {
+        if (!(main_buff[fd] = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char))))
+            return (-1);
+        main_buff[fd][0] = '\0';
+    }
 	main_buff[fd] = read_append(fd, main_buff[fd], tmp_buff);
 	if (main_buff[fd][0] == '\0')
 		return (0);

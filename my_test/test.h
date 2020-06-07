@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gkhodizo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/03 15:28:55 by gkhodizo          #+#    #+#             */
-/*   Updated: 2020/06/07 17:11:31 by gkhodizo         ###   ########.fr       */
+/*   Updated: 2020/06/07 16:09:26 by gkhodizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef TEST_H
+# define TEST_H
 
-# include <unistd.h>
-# include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdio.h>
+#include "../get_next_line.h"
+#include "color.h"
 
-int		get_next_line(int fd, char **line);
-char	*ft_strncpy(char *dst, char *src, size_t len);
-char	*ft_strdup(char *s1);
-int		is_nl(char *s);
-size_t	line_len(char *str);
-size_t	buff_len(char *str);
+/* read single line tests */
+
+void	test_case_1();
+void	test_case_2();
+void	test_case_3();
+void	test_case_4();
+void	test_case_5();
+void	test_case_6();
+
+/* read the entire document tests */
+
+void	test_case_7();
+void	test_case_8();
 
 #endif

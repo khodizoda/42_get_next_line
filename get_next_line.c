@@ -6,7 +6,7 @@
 /*   By: gkhodizo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/03 15:28:11 by gkhodizo          #+#    #+#             */
-/*   Updated: 2020/06/01 20:44:34 by gkhodizo         ###   ########.fr       */
+/*   Updated: 2020/06/07 17:42:05 by gkhodizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,31 @@
 
 #include "get_next_line.h"
 
-static char		*clean_buff(char *buff)
+static char		*clean_buff(char *text)
 {
 	size_t	i;
-	size_t	lin_len;
-	size_t	clean_buf_len;
+	size_t	llen;
+	size_t	nlen;
 	char	*tmp;
 
-	lin_len = line_len(buff);
-	clean_buf_len = buff_len(buff) - lin_len;
-	if (!(tmp = (char *)malloc((clean_buf_len + 1) * sizeof(char))))
-		return (NULL);
-	i = 0;
-	while (buff[lin_len] != '\0')
-		tmp[i++] = buff[++lin_len];
-	tmp[i] = '\0';
-	free(buff);
-	buff = ft_strdup(tmp);
-	free(tmp);
-	return (buff);
+	if (text[0] != '\0')
+	{
+		llen = line_len(text);
+		nlen = buff_len(text) - llen;
+		if (!(tmp = (char *)malloc((nlen + 1) * sizeof(char))))
+			return (NULL);
+		i = 0;
+		while (text[llen] != '\0')
+			tmp[i++] = text[++llen];
+		tmp[i] = '\0';
+		free(text);
+		text = ft_strdup(tmp);
+		free(tmp);
+	}
+	return (text);
 }
 
-static int		save_to_line(char **line, char *main_buff)
+static int		save_to_line(char **line, char *text)
 {
 	size_t len;
 
@@ -48,87 +51,84 @@ static int		save_to_line(char **line, char *main_buff)
 		free(*line);
 		*line = NULL;
 	}
-	len = line_len(main_buff);
+	len = line_len(text);
 	if (!(*line = (char *)malloc((len + 1) * sizeof(char))))
 		return (-1);
-	if (main_buff)
+	if (text)
 	{
-		ft_memcpy(*line, main_buff, len);
-		(*line)[len] = '\0';
-		if (main_buff[len] == '\n')
+		ft_strncpy(*line, text, len);
+		if (text[len] == '\n')
 			return (1);
 	}
 	return (0);
 }
 
-static char		*realloc_append_buff(char *mid_buff, char *tmp_buff)
+static char		*realloc_append_buff(char *mid, char *tmp)
 {
 	size_t	i;
-	size_t	mid_len;
-	size_t	tmp_len;
+	size_t	mlen;
+	size_t	tlen;
 	char	*new;
 
-	mid_len = buff_len(mid_buff);
-	tmp_len = buff_len(tmp_buff);
-	if (!(new = (char *)malloc((mid_len + tmp_len + 1) * sizeof(char))))
+	mlen = buff_len(mid);
+	tlen = buff_len(tmp);
+	if (!(new = (char *)malloc((mlen + tlen + 1) * sizeof(char))))
 		return (NULL);
 	i = 0;
-	while (i < mid_len)
+	while (i < mlen)
 	{
-		new[i] = mid_buff[i];
+		new[i] = mid[i];
 		i++;
 	}
 	i = 0;
-	while (i < tmp_len)
+	while (i < tlen)
 	{
-		new[mid_len] = tmp_buff[i];
+		new[mlen] = tmp[i];
 		i++;
-		mid_len++;
+		mlen++;
 	}
-	new[mid_len] = '\0';
+	new[mlen] = '\0';
 	return (new);
 }
 
-static char		*read_append(int fd, char *main_buff, char *tmp_buff)
+static char		*read_append(int fd, char *text, char *tmp)
 {
 	ssize_t	bytes_read;
-	char	*mid_buff;
+	char	*mid;
 
-	while ((bytes_read = read(fd, tmp_buff, BUFFER_SIZE)) > 0)
+	while ((bytes_read = read(fd, tmp, BUFFER_SIZE)) > 0)
 	{
-		tmp_buff[bytes_read] = '\0';
-		mid_buff = ft_strdup(main_buff);
-		free(main_buff);
-		main_buff = realloc_append_buff(mid_buff, tmp_buff);
-		free(mid_buff);
-		if (ft_strchr(tmp_buff, '\n'))
+		tmp[bytes_read] = '\0';
+		mid = text;
+		text = realloc_append_buff(mid, tmp);
+		free(mid);
+		if (is_nl(tmp))
 			break ;
 	}
-	return (main_buff);
+	return (text);
 }
 
 int				get_next_line(int fd, char **line)
 {
 	int			ret;
-	char		tmp_buff[BUFFER_SIZE + 1];
-	static char	*main_buff[MAX_FD];
+	char		tmp[BUFFER_SIZE + 1];
+	static char	*text;
 
 	if (!line
 		|| !(*line = ft_strdup(""))
-		|| fd < 0 || fd > MAX_FD
-		|| BUFFER_SIZE <= 0 || BUFFER_SIZE >= MAX_INT
-		|| (read(fd, tmp_buff, 0) < 0))
+		|| fd < 0 || BUFFER_SIZE <= 0
+		|| (read(fd, tmp, 0) < 0))
 		return (-1);
-	if (!main_buff[fd])
+	if (!text)
 	{
-		if (!(main_buff[fd] = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char))))
+		if (!(text = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char))))
 			return (-1);
-		main_buff[fd][0] = '\0';
+		text[0] = '\0';
 	}
-	main_buff[fd] = read_append(fd, main_buff[fd], tmp_buff);
-	if (main_buff[fd][0] == '\0')
+	text = read_append(fd, text, tmp);
+	if (text[0] == '\0')
 		return (0);
-	ret = save_to_line(line, main_buff[fd]);
-	main_buff[fd] = clean_buff(main_buff[fd]);
+	ret = save_to_line(line, text);
+	text = clean_buff(text);
 	return (ret);
 }

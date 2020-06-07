@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gkhodizo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/03 15:28:55 by gkhodizo          #+#    #+#             */
-/*   Updated: 2020/06/07 17:11:31 by gkhodizo         ###   ########.fr       */
+/*   Created: 2020/06/07 00:01:04 by gkhodizo          #+#    #+#             */
+/*   Updated: 2020/06/07 00:03:23 by gkhodizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef COLOR_H
+# define COLOR_H
 
-# include <unistd.h>
-# include <stdlib.h>
+/* regular */
 
-int		get_next_line(int fd, char **line);
-char	*ft_strncpy(char *dst, char *src, size_t len);
-char	*ft_strdup(char *s1);
-int		is_nl(char *s);
-size_t	line_len(char *str);
-size_t	buff_len(char *str);
+void	red();
+void	green();
+void	yellow();
+void	blue();
+void	magenta();
+void	cyan();
+
+/* bold */
+
+void	bold_red();
+void	bold_green();
+void	bold_yellow();
+void	bold_blue();
+void	bold_magenta();
+void	bold_cyan();
+
+/* reset */
+void	reset();
 
 #endif

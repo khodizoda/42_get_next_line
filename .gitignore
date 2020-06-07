@@ -1,4 +1,4 @@
-main.c
+my_test
 *.txt
-a.out
-a.out.dSYM
+main.c
+test.c

@@ -25,10 +25,10 @@ static char		*clean_buff(char *text)
 	size_t	nlen;
 	char	*tmp;
 
-	if (text[0] != '\0')
+	llen = line_len(text);
+	nlen = buff_len(text) - llen;
+	if (nlen > 0)
 	{
-		llen = line_len(text);
-		nlen = buff_len(text) - llen;
 		if (!(tmp = (char *)malloc((nlen + 1) * sizeof(char))))
 			return (NULL);
 		i = 0;
@@ -36,9 +36,10 @@ static char		*clean_buff(char *text)
 			tmp[i++] = text[++llen];
 		tmp[i] = '\0';
 		free(text);
-		text = ft_strdup(tmp);
-		free(tmp);
+		return (tmp);
 	}
+	free(text);
+	text = NULL;
 	return (text);
 }
 
@@ -54,6 +55,7 @@ static int		save_to_line(char **line, char *text)
 	len = line_len(text);
 	if (!(*line = (char *)malloc((len + 1) * sizeof(char))))
 		return (-1);
+	(*line)[len] = '\0';
 	if (text)
 	{
 		ft_strncpy(*line, text, len);
@@ -108,7 +110,7 @@ static char		*read_append(int fd, char *text, char *tmp)
 	return (text);
 }
 
-int				get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	int			ret;
 	char		tmp[BUFFER_SIZE + 1];
@@ -119,14 +121,8 @@ int				get_next_line(int fd, char **line)
 		|| fd < 0 || BUFFER_SIZE <= 0
 		|| (read(fd, tmp, 0) < 0))
 		return (-1);
-	if (!text)
-	{
-		if (!(text = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char))))
-			return (-1);
-		text[0] = '\0';
-	}
 	text = read_append(fd, text, tmp);
-	if (text[0] == '\0')
+	if (text == NULL)
 		return (0);
 	ret = save_to_line(line, text);
 	text = clean_buff(text);

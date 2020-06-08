@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gkhodizo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/06 15:30:39 by gkhodizo          #+#    #+#             */
-/*   Updated: 2020/06/07 21:24:43 by gkhodizo         ###   ########.fr       */
+/*   Created: 2020/05/03 15:28:55 by gkhodizo          #+#    #+#             */
+/*   Updated: 2020/06/07 21:07:55 by gkhodizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
-#include <fcntl.h>
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-int	main(void)
-{
-	int	fd;
-	int	gnl;
-	char	*line;
+# include <unistd.h>
+# include <stdlib.h>
 
-	fd = open("./src/example.txt", O_RDONLY);
-	
-	while ((gnl = get_next_line(fd, &line)) > 0)
-	{
-		printf("gnl is %d: %s\n", gnl, line);
-		free(line);
-	}
-	printf("gnl is %d: %s\n", gnl, line);
-	free(line);
+# define MAX_FD 4096
 
-	system ("leaks gnl");
-	return (0);
-}
+int		get_next_line(int fd, char **line);
+char	*ft_strncpy(char *dst, char *src, size_t len);
+char	*ft_strdup(char *s1);
+int		is_nl(char *s);
+size_t	line_len(char *str);
+size_t	buff_len(char *str);
+
+#endif

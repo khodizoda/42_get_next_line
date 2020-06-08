@@ -6,7 +6,7 @@
 /*   By: gkhodizo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/03 15:30:39 by gkhodizo          #+#    #+#             */
-/*   Updated: 2020/06/07 16:57:08 by gkhodizo         ###   ########.fr       */
+/*   Updated: 2020/06/07 21:02:20 by gkhodizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void test_case_1()
 	a_gnl = get_next_line(fd, &a_line);
 
 	e_gnl = -1;
-	e_line = "";
+	e_line = NULL;
 	
-	if (a_gnl == e_gnl && (strcmp(a_line, e_line) == 0))
+	if (a_gnl == e_gnl && a_line == e_line)
 	{
 		bold_green();
 		printf("|OK|\n");

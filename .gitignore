@@ -1,4 +1,8 @@
+gnl
+gnl.dSYM
+a.out
+a.out.SYM
 my_test
 *.txt
 main.c
-test.c
+main_bonus.c

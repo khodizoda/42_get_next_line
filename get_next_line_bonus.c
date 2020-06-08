@@ -6,7 +6,7 @@
 /*   By: gkhodizo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/03 15:28:11 by gkhodizo          #+#    #+#             */
-/*   Updated: 2020/06/07 21:10:04 by gkhodizo         ###   ########.fr       */
+/*   Updated: 2020/06/08 00:43:28 by gkhodizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static char		*read_append(int fd, char *text, char *tmp)
 	return (text);
 }
 
-int	get_next_line(int fd, char **line)
+int				get_next_line(int fd, char **line)
 {
 	int			ret;
 	char		tmp[BUFFER_SIZE + 1];

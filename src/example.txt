@@ -1,8 +1,0 @@
-Of course, I am still an advocate of thinking at broader scope,
- and particularly of the value of architectural approaches rooted 
- in deep domain knowledge and software usability.
- The book isn’t about that—or, at least, 
- it isn’t obviously about that. 
- This book has a subtler message whose profoundness should not be 
- underappreciated. 
- 

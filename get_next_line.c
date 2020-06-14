@@ -6,7 +6,7 @@
 /*   By: gkhodizo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/03 15:28:11 by gkhodizo          #+#    #+#             */
-/*   Updated: 2020/06/08 00:43:08 by gkhodizo         ###   ########.fr       */
+/*   Updated: 2020/06/14 19:33:23 by gkhodizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ int				get_next_line(int fd, char **line)
 	static char	*text;
 
 	if (!line
+		|| !(*line = ft_strdup(""))
 		|| fd < 0 || BUFFER_SIZE <= 0
-		|| (read(fd, tmp, 0) < 0)
-		|| !(*line = ft_strdup("")))
+		|| (read(fd, tmp, 0) < 0))
 		return (-1);
 	text = read_append(fd, text, tmp);
 	if (text == NULL)

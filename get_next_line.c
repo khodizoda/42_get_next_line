@@ -110,9 +110,9 @@ static char		*read_append(int fd, char *text, char *tmp)
 	return (text);
 }
 
-int				get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
-	int			ret;
+	int		ret;
 	char		tmp[BUFFER_SIZE + 1];
 	static char	*text;
 

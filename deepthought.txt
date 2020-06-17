@@ -1,0 +1,56 @@
+= Host-specific information ====================================================
+$> hostname; uname -msr
+e1z1r5p1.42.us.org
+Darwin 17.5.0 x86_64
+$> date
+Wed Jun 17 12:31:09 PDT 2020
+$> gcc --version
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+Apple LLVM version 9.1.0 (clang-902.0.39.1)
+Target: x86_64-apple-darwin17.5.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+$> clang --version
+Apple LLVM version 9.1.0 (clang-902.0.39.1)
+Target: x86_64-apple-darwin17.5.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+
+= User files collection ========================================================
+Collecting user files from Vogsphere
+
+= Collected files ==========================================
+$> ls -lAR /var/folders/tp/_vdkv5lj2jg3y9h854zzbk_80000hy/T/tmpll4Lez/user
+total 80
+-rw-r--r--  1 deepthought  deepthought    62 Jun 17 12:31 .gitignore
+-rw-r--r--  1 deepthought  deepthought  8515 Jun 17 12:31 __GIT_HISTORY
+-rw-r--r--  1 deepthought  deepthought  2951 Jun 17 12:31 get_next_line.c
+-rw-r--r--  1 deepthought  deepthought  1190 Jun 17 12:31 get_next_line.h
+-rw-r--r--  1 deepthought  deepthought  2989 Jun 17 12:31 get_next_line_bonus.c
+-rw-r--r--  1 deepthought  deepthought  1224 Jun 17 12:31 get_next_line_bonus.h
+-rw-r--r--  1 deepthought  deepthought  1736 Jun 17 12:31 get_next_line_utils.c
+-rw-r--r--  1 deepthought  deepthought  1742 Jun 17 12:31 get_next_line_utils_bonus.c
+
+= basic_tests ==================================================================
+1
+2
+3
+4
+
+5
+
+1
+2
+3
+4
+
+GNL OK
+Grade: 100
+
+= bonus_tests ==================================================================
+1
+
+GNL OK
+Grade: 15
+
+= Final grade: 115 =============================================================
